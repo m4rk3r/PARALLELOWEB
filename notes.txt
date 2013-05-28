@@ -1,0 +1,1 @@
+"content_security_policy": "script-src 'self' https://duskjacekt.com; object-src 'self'",
