@@ -9,7 +9,6 @@ var count = 0;
 var kill = false;
 var URL = new Object();
 URL.base = 'http://duskjacket.com/MMORPP/';
-//URL.base = 'http://localhost:8000/MMORPP/';
 URL.update = URL.base + 'get-and-update-json/';
 
 
@@ -35,7 +34,6 @@ document.onmousemove = function(e)
 {
     pos.x = e.pageX;
     pos.y = e.pageY;
-    // do what you want with x and y
 };
 
 function process_response( data ){

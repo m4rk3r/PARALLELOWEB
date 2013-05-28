@@ -92,7 +92,7 @@ chrome.browserAction.onClicked.addListener(function test(tab) {
 chrome.tabs.onRemoved.addListener(function(tabId){
     if(active && tabId == previous_tab){
         clients_for_tabs[ previous_tab ]=false;
-        console.log("REMOVING LISTENER");
+        //console.log("REMOVING LISTENER");
         active=false;
     }
 });
