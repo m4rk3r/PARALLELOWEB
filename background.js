@@ -70,26 +70,30 @@ function on_exit(data){
         try{
             if( clients_for_tabs[ previous_tab ] ) db[ client_id ].postMessage( {kill:true} )
         }catch(err){}
-    }   
+    }
 }
 
 function on_load(data){
-    if(active && previous_tab == data.tabId ){
+    if(active && previous_tab == data.tabId && data.frameId == 0 ){
         chrome.tabs.executeScript(previous_tab, {file: "jquery-1.8.2.js" });
-        chrome.tabs.executeScript(previous_tab, {file: "paralleloweb.js" });
+        chrome.tabs.executeScript(previous_tab, {file: "paralleloweb.js" });            
     
         var parsed = parseUri(data.url);
         page = '&url='+parsed.host + (parsed.relative.length > 1?parsed.relative:'');
     }
 }
 
+function tab_replace(data){
+    if( previous_tab == data.replacedTabId) previous_tab = data.tabId;
+}
 
 chrome.browserAction.onClicked.addListener(function (tab) { 
     if(!active){
         if(!has_listeners){
             has_listeners=true;
-            chrome.webNavigation.onBeforeNavigate.addListener( on_exit );
+            //chrome.webNavigation.onBeforeNavigate.addListener( on_exit );
             chrome.webNavigation.onCompleted.addListener( on_load );
+            chrome.webNavigation.onTabReplaced.addListener( tab_replace );
         }
         
         // activate icon

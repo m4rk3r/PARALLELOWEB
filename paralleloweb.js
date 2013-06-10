@@ -50,14 +50,19 @@ function process_response( data ){
         if(key == client_id) continue // ourself
         if(mice_bin.indexOf(key) != -1){
             if( clients[i][1][2] ){ // moved flag
-                mice_bin[key].img.attr('src',chrome.extension.getURL('pointer.gif'));
-                mice_bin[key].img.wrap("<a href='"+clients[i][1][3]+"' />");
+                if( mice_bin[key].img.attr('src') != chrome.extension.getURL('pointer.gif') ){
+                    mice_bin[key].img.attr('src',chrome.extension.getURL('pointer.gif'));
+                    mice_bin[key].img.wrap("<a href='"+clients[i][1][3]+"' />");
+                }
             }else{
-                mice_bin[key].img.css({ 'left': clients[i][1][0], 'top':clients[i][1][1] });   
+                if( mice_bin[key].img.attr('src') != chrome.extension.getURL('pointer.png') ){
+                    mice_bin[key].img.attr('src',chrome.extension.getURL('pointer.png'));
+                }
+                mice_bin[key].img.css({ 'left': clients[i][1][0], 'top':clients[i][1][1] });
             }
         }else{
             var cursor = $("<img src='"+chrome.extension.getURL('pointer.png')+"' class='mouse-pointer' >");
-            cursor.css({'left':clients[i][1][0],'top':clients[i][1][1],'position':'absolute','width': 10,'z-index':30})
+            cursor.css({'left':clients[i][1][0],'top':clients[i][1][1],'position':'absolute','width': 10,'z-index':9999})
             cursor.attr('id',key)
             $('body').append(cursor);
 
